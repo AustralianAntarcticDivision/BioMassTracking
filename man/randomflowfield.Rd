@@ -1,0 +1,34 @@
+\name{randomflowfield}
+\alias{randomflowfield}
+\title{Generate one direction of a random flow field}
+\description{
+Generate a matrix meant to be used as one direction of a random flow field.
+}
+\usage{
+randomflowfield(n, m, std_dev)
+}
+\arguments{
+  \item{n}{Zonal (x) extent of the flow field.}
+  \item{m}{Meridional (y) extent of the flow field.}
+  \item{std_dev}{Standard deviation used for the random walk, see details.}
+}
+\details{
+This function proceeds in the following way: A starting value, either 1 or -1, is
+drawn at random. This is assigned to the element in the top-left corner of the matrix.
+The other values are then calculated as the sum of a normal random variable with standard
+deviaton \code{std\_dev} and their left neighbour (top row) or the mean of their left and their
+upper neighbour (rest).
+}
+\value{
+A matrix meant to be used as one direction of a random flow field.
+}
+\author{ Thorsten Lenser }
+
+\seealso{\code{\link{prepare.arena}}}
+\examples{
+U = randomflowfield(30,30,0.3)
+V = randomflowfield(30,30,0.3)
+quiver(U,V)
+}
+\keyword{ misc }% at least one, from doc/KEYWORDS
+

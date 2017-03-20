@@ -1,0 +1,3 @@
+useDynLib(BiomassTracking)
+export(biomass.tracking,biomass.compare,particle.tracking,particle.tracking.compare,plot.arena,prepare.arena,quiver,randomflowfield)
+S3method(plot,arena)

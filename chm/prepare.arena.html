@@ -1,0 +1,151 @@
+<html><head><title>Prepares the arena for an estimation of movement</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>prepare.arena(BiomassTracking)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   prepare.arena">
+<param name="keyword" value=" Prepares the arena for an estimation of movement">
+</object>
+
+
+<h2>Prepares the arena for an estimation of movement</h2>
+
+
+<h3>Description</h3>
+
+<p>
+This function prepares the arena, i.e. the flow field and the polygon structure,
+for use by the other functions in package BiomassTracking.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+prepare.arena(file_U = NULL, file_V = NULL, file_S = NULL, n = dim(file_U)[2], 
+              m = dim(file_U)[1], na.string = "-9999", eddy = FALSE,
+              smooth = FALSE, noise_sd = 0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file_U</code></td>
+<td>
+Describes the U data, see details.</td></tr>
+<tr valign="top"><td><code>file_V</code></td>
+<td>
+Describes the V data, see details.</td></tr>
+<tr valign="top"><td><code>file_S</code></td>
+<td>
+Describes the S data, see details.</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+Zonal dimension of the arena, if needed.</td></tr>
+<tr valign="top"><td><code>m</code></td>
+<td>
+Meridional dimension of the arena, if needed.</td></tr>
+<tr valign="top"><td><code>na.string</code></td>
+<td>
+The character string denoting NA in the input files.</td></tr>
+<tr valign="top"><td><code>eddy</code></td>
+<td>
+If TRUE, an eddy is added in the middle of the arena.</td></tr>
+<tr valign="top"><td><code>smooth</code></td>
+<td>
+If TRUE, the flow field is smoothed with a 3x3 moving average.</td></tr>
+<tr valign="top"><td><code>noise_sd</code></td>
+<td>
+The standard deviation of Gaussian noise added to the flow field.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+The data descriptors <code>file\_U</code>, <code>file\_V</code> and <code>file\_S</code> can come in a number of different 
+formats. If they are filenames, the respective data is loaded from these files. In case the data is 
+already loaded, they can also be data.frames. If they are NULL, a default construction is invoked, 
+where the values <code>n</code> and <code>m</code> are needed and the flow is straight in west-east direction. 
+They can also be matrices giving the respective data directly.
+</p>
+<p>
+In the usual case, the data is loaded from files and then prepared to be used. The matrices <code>U</code> 
+and <code>V</code> are interpolated in every NA position that is not land, while the velocities on land are 
+set to 0. The component perpendicular to land of the sea velocities directly at the land-sea boundary 
+is set to 0 if it points towards land, so that particles wouldn't cross the boundary if an ideal particle tracking 
+algorithm was used.
+</p>
+<p>
+The data is then rescaled, as the files are supposed to be in m/s format while the particle tracking
+algorithms act on a longitude/latitude grid. Therefore, the values of 'U' and 'V' are rescaled to
+degree lon/day and degree lat/day, respectively. Note that this rescaling includes a relative increase
+of the southern U-velocities compared to the northern U-velocities, because the longitudinal distances
+are smaller in the South. Also note that the whole algorithm is meant to work in the southern hemisphere
+and has to be adapted to the Northern Hemisphere if that is wanted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+An object of class <code>arena</code>, describing the arena in which the function is too be used. It is a list containing
+elements <code>lat</code>, <code>lon</code>, <code>U</code>, <code>V</code> and <code>S</code> (in that order).
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>lon, lat</code></td>
+<td>
+Vectors storing the latitude and longitude values of the grid points used.</td></tr>
+<tr valign="top"><td><code>U, V</code></td>
+<td>
+Matrices with the corresponding flow velocities in west-east and south-north direction.</td></tr>
+<tr valign="top"><td><code>S</code></td>
+<td>
+A matrix in which each grid points has an integer number, either giving the polygon it belongs to 
+(if &gt; 0) or stating that this grid point lies on land (if == 0).</td></tr>
+</table>
+
+<h3>Warning</h3>
+
+<p>
+This function is written only for the Southern Hemisphere, but can be adapted easily to the Northern Hemisphere.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+Thorsten Lenser
+</p>
+
+
+<h3>References</h3>
+
+<p>
+TODO: my report
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="particle.tracking.html">particle.tracking</a></code>, <code><a href="biomass.tracking.html">biomass.tracking</a></code>, <code><a href="particle.tracking.compare.html">particle.tracking.compare</a></code>, <code><a href="biomass.compare.html">biomass.compare</a></code>, <code><a href="plot.arena.html">plot.arena</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Udata)
+data(Vdata)
+data(Sdata)
+arena = prepare.arena(Udata,Vdata,Sdata)
+plot(arena)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>BiomassTracking</em> version 0.8 <a href="00Index.html">Index]</a></div>
+
+</body></html>

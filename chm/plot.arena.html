@@ -1,0 +1,106 @@
+<html><head><title>Show the arena</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>plot.arena(BiomassTracking)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   plot.arena">
+<param name="keyword" value=" Show the arena">
+</object>
+
+
+<h2>Show the arena</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Plots a graphical representation of the flow field together with 
+the polygon structure. This is a method for the generic function
+<code>plot</code> and can therefore be called as <code>plot(arena_object)</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plot.arena(x, arrow_scale = 1, grid = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+An object of class <code>arena</code>, see details.</td></tr>
+<tr valign="top"><td><code>arrow_scale</code></td>
+<td>
+The length of the longest arrow is <code>arrow\_scale</code> times the distance between two neighbouring grid points.</td></tr>
+<tr valign="top"><td><code>grid</code></td>
+<td>
+If TRUE, a grid is drawn marking the boxes around the grid points.</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+Further arguments to the <code>plot</code> funtion.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+An <code>arena</code> object describes the arena in which the function is to be used. It is a list
+containing elements <code>lat</code>, <code>lon</code>, <code>U</code>, <code>V</code> and <code>S</code> (in that order), where
+<code>lat</code> and <code>lon</code> are vectors storing the latitude and longitude values of the grid points
+used, <code>U</code> and <code>V</code> are matrices with the corresponding flow velocities in west-east
+and south-north direction, and <code>S</code> is a matrix in which each grid points has
+an integer number, either giving the polygon it belongs to (if &gt; 0) or stating that this grid point
+lies on land (if == 0).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+Thorsten Lenser
+</p>
+
+
+<h3>References</h3>
+
+<p>
+TODO: my report
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a onclick="findlink('graphics', 'plot.html')" style="text-decoration: underline; color: blue; cursor: hand">plot</a></code>, <code><a href="prepare.arena.html">prepare.arena</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Udata)
+data(Vdata)
+data(Sdata)
+
+arena = prepare.arena(Udata,Vdata,Sdata)
+plot(arena)
+</pre>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>BiomassTracking</em> version 0.8 <a href="00Index.html">Index]</a></div>
+
+</body></html>

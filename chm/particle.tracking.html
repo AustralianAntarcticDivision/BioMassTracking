@@ -1,0 +1,202 @@
+<html><head><title>Estimate a 'movement kernel' describing the movement of biomass.</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>particle.tracking(BiomassTracking)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   particle.tracking">
+<param name="keyword" value=" Estimate a 'movement kernel' describing the movement of biomass.">
+</object>
+
+
+<h2>Estimate a 'movement kernel' describing the movement of biomass.</h2>
+
+
+<h3>Description</h3>
+
+<p>
+A <code>movement kernel</code> is meant to summarise the movement of biomass across
+polygon-shaped areas in the ocean. It is estimated using a 4-th order
+Runge-Kutta particle tracking algorithm, which records the moves of 
+passive numerical drifters from polygon to polygon.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+particle.tracking(arena,num_particles,no_move_window=1000,
+                  end_t_counter=NULL,t_step=NULL,
+                  diffusion=0,no_age_classes="FD",min_nac=100,
+                  max_nac=500,delta=NULL,graphics=FALSE,
+                  log=FALSE,from_boundary=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>arena</code></td>
+<td>
+An object of class <code>arena</code>, see details.</td></tr>
+<tr valign="top"><td><code>num_particles</code></td>
+<td>
+The number of particles used for the estimation.</td></tr>
+<tr valign="top"><td><code>no_move_window</code></td>
+<td>
+Number of time steps in which no move between polygons has to occur in order for the particle tracking to stop. Use 0 to disable.</td></tr>
+<tr valign="top"><td><code>end_t_counter</code></td>
+<td>
+The maximal number of time steps used in the Runge-Kutta scheme. Has to be specified if log==TRUE.</td></tr>
+<tr valign="top"><td><code>t_step</code></td>
+<td>
+The time step used in the Runge-Kutta scheme. See details for the default value.</td></tr>
+<tr valign="top"><td><code>diffusion</code></td>
+<td>
+A diffusion coefficient, see details.</td></tr>
+<tr valign="top"><td><code>no_age_classes</code></td>
+<td>
+The number of age classes used in the <code>movement kernel</code>, takes <code>Sturges</code>, <code>FD</code>, <code>scott</code> or an integer number. See details.</td></tr>
+<tr valign="top"><td><code>min_nac</code></td>
+<td>
+The minimum number of age classes.</td></tr>
+<tr valign="top"><td><code>max_nac</code></td>
+<td>
+The maximum number of age classes.</td></tr>
+<tr valign="top"><td><code>delta</code></td>
+<td>
+The width of an age class used in the movement kernel, chosen automatically if NULL. </td></tr>
+<tr valign="top"><td><code>graphics</code></td>
+<td>
+If TRUE, the remaining particles at the end of the Runge-Kutta simulation are shown. </td></tr>
+<tr valign="top"><td><code>log</code></td>
+<td>
+If TRUE, the path of the particles is saved to a global variable 'log' and displayed if graphics==TRUE. Only use for a small number of particles!</td></tr>
+<tr valign="top"><td><code>from_boundary</code></td>
+<td>
+If TRUE, particles are inserted from the boundary, otherwise they are uniformly distributed over the domain. This might be advantageous for plotting purposes if log=TRUE.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+The two main bits of work in this function, the Runge-Kutta simulation and the estimation of the 
+<code>movement\_ kernel</code>, have been implemented in the C dlls <code>particle\_tracking</code> and <code>estimate\_P</code>. Even so,
+the runtime of this function can be quite high when using large numbers of particles and/or a
+large domain. It is important to note that in the present form, particles can get caught in
+'voids' in the flow field, i.e. in places where their velocity is 0. If this happens for too
+many particles the estimation should be repeated with a higher values of diffusion. 
+A warnings message is given at the end of the simulation, indicating the number of particles left in the domain. 
+</p>
+<p>
+There is considerable space for improvement in replacing the fixed time step Runge-Kutta scheme with
+a more sophisticated numerical integrator. However, this requires some fiddling with the underlying
+C functions and has not been tried yet.
+</p>
+<p>
+An <code>arena</code> object describes the arena in which the function is to be used. It is a list containing
+elements <code>lat</code>, <code>lon</code>, <code>U</code>, <code>V</code> and <code>S</code> (in that order), where <code>lat</code> and <code>lon</code> are vectors storing
+the latitude and longitude values of the grid points used, <code>U</code> and <code>V</code> are matrices with the corresponding
+flow velocities in west-east and south-north direction, and <code>S</code> is a matrix in which each grid points has 
+an integer number, either giving the polygon it belongs to (if &gt; 0) or stating that this grid point 
+lies on land (if == 0).
+</p>
+<p>
+The default values for the time step in the Runge-Kutta scheme is choosen in such a way that a particle
+will on average move for 1/10 of the distance between two grid points in each time step. Although a
+variable time step would be preferable, this yields an accurate estimation in most cases.
+</p>
+<p>
+Diffusion is included by adding the product of a normal random number and the mean velocity in the 
+either direction to the calculated velocity in that direction. The diffusion coefficient gives the
+standard variation of the normal random number. Diffusion is needed to get particles out of 'voids',
+i.e. places in the flow field where the adjacent velocities cancel out and the particles get stuck.
+It is also physically justifiable as the flow field itself characterises advective motion only.
+</p>
+<p>
+The main loss of precision in the replication and prediction of movement stems from the management of 
+time, which is realised as a system of 'age classes' in the movement kernel. A particle entering a 
+polygon is in age class 1 and then moves up through the age classes. Each age class has different probabilities of 
+movement attached to it, so that the movement of a biomass depends on the time since it entered its current
+polygon. Since the choice of the number of age classes and their width <code>delta</code> can have a profound 
+effect, the user can choose whether to trust one of the built-in methods (<code>Sturges</code>, <code>FD</code>, <code>scott</code>) 
+which are usually used to choose the number of classes in a histogram, or specificy his or her own 
+number of age classes. The default uses the Freedman-Diaconis rule (<code>FD</code>), which usually produces 
+the highest number of age-classes and therefore the best precision. Unless the performance of the 
+function <code>biomass\_tracking</code> is totally unsatisfactory due to the high number of age-classes,
+less age-classes should not be used, as the loss of precision can be quite severe.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+An object of class <code>movement\_kernel</code>, which is a list of the following items:
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>P</code></td>
+<td>
+A list of the movement tensors for each polygon, where <code>P[[poly]][i,j,k]</code> describes the 
+probability of a particle leaving polygon <code>poly</code> towards polygon <code>j</code> in the case
+that it entered from polygon <code>i</code> and is in age class <code>k</code>.</td></tr>
+<tr valign="top"><td><code>nk</code></td>
+<td>
+A list containing the neighbours for each polygon. This is used to translate between the 
+local neighbourhood numbers (used in <code>P</code>) to the global numbers of the polygons.</td></tr>
+<tr valign="top"><td><code>no_age_classes</code></td>
+<td>
+The number of age classes used in the movement kernel.</td></tr>
+<tr valign="top"><td><code>delta</code></td>
+<td>
+Width of the age classes used in the movement kernel.</td></tr>
+</table>
+
+<h3>Author(s)</h3>
+
+<p>
+Thorsten Lenser
+</p>
+
+
+<h3>References</h3>
+
+<p>
+TODO: my report
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="biomass.tracking.html">biomass.tracking</a></code>, <code><a href="particle.tracking.compare.html">particle.tracking.compare</a></code>, <code><a href="biomass.compare.html">biomass.compare</a></code>, <code><a href="prepare.arena.html">prepare.arena</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Udata)
+data(Vdata)
+data(Sdata)
+
+arena = prepare.arena(Udata,Vdata,Sdata)
+plot(arena)
+
+# Use more particles if realistic results are needed
+mk = particle.tracking(arena,400,5000,diffusion=0.6,graphics=TRUE)
+
+# Now estimate the biomass movement
+N1 = biomass.tracking(mk,seq(0,4900,by=100),infl_poly=2)
+
+# Get a particle tracking result to compare the above to
+N2 = particle.tracking.compare(arena,400,100,50,diffusion=0.6,infl_poly=2)
+
+# Compare the results
+biomass.compare(N1,N2)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>BiomassTracking</em> version 0.8 <a href="00Index.html">Index]</a></div>
+
+</body></html>

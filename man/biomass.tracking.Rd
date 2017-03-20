@@ -1,0 +1,66 @@
+\name{biomass.tracking}
+\alias{biomass.tracking}
+\title{ Calculate the movement of biomass from movement tensors }
+\description{
+This function calculates the movement of biomass between
+given polygons as determined by the movement parameters.
+It uses the movement tensor calculated by a numerical tracer 
+experiment implemented by the function \code{particle.tracking}.
+}
+\usage{
+biomass.tracking(mk, times, start_setup=NULL, infl_poly = 1, infl_time=10, 
+                 insert_t_step=NULL,silent=TRUE,S=NULL)
+}
+\arguments{
+  \item{mk}{An object of class \code{movement kernel}, see details.}
+  \item{times}{A vector giving the time-points at which the output is wanted.}
+  \item{start_setup}{A vector giving a starting biomass distribution. Specify either this or the next two arguments.}
+  \item{infl_poly}{The biomass flows in from this polygon. Has to have positive inflow from the boundary.}
+  \item{infl_time}{The number of time steps over which the biomass is to be inserted. Only used if start\_setup==NULL.}
+  \item{insert_t_step}{The width of the time steps over which the biomass is to be inserted. Only used if start\_setup==NULL.}
+  \item{silent}{If FALSE, the movement is shown in text and graphic and the user has to hit 'enter' after every time step.}
+  \item{S}{Matrix describing the polygon structure, needed if silent == FALSE.}
+}
+\details{
+Two different starting conditions for the flow of biomass can be given: A starting distribution of
+biomass can be specified or it can flow into the area through the specified inflow polygon over
+a given number of time steps. In this case, time steps refers to the differences between
+the first two entries in the \code{times} vector.
+
+An object of class \code{movement\_kernel} is a list of the following items:
+
+P: A list of the movement tensors for each polygon, where P[[poly]][i,j,k] describes the probability of a particle leaving polygon \code{poly} towards polygon \code{j} in the case that it entered from polygon \code{i} and is in age class \code{k}.
+nk: A list containing the neighbours for each polygon. This is used to translate between the local neighbourhood numbers (used in P) to the global numbers of the polygons.
+no\_age\_classes: The number of age classes used in the movement kernel.
+delta: Width of the age classes used in the movement kernel.
+retention: Logical to indicate whether retention in the final age class has been enabled or not.
+}
+\value{
+A matrix of dimension 'number of polygons' x 'number of time steps requested'. Each column contains
+the biomass distribution in the respective time step.  
+}
+\references{TODO: my report}
+\author{ Thorsten Lenser }
+
+\seealso{\code{\link{particle.tracking}}, \code{\link{particle.tracking.compare}}, \code{\link{biomass.compare}}, \code{\link{prepare.arena}}}
+\examples{
+data(Udata)
+data(Vdata)
+data(Sdata)
+
+arena = prepare.arena(Udata,Vdata,Sdata)
+plot(arena)
+
+# Use more particles if realistic results are needed
+mk = particle.tracking(arena,400,5000,diffusion=0.6,graphics=TRUE)
+
+# Now estimate the biomass movement
+N1 = biomass.tracking(mk,seq(0,4900,by=100),infl_poly=2)
+
+# Get a particle tracking result to compare the above to
+N2 = particle.tracking.compare(arena,400,100,50,diffusion=0.6,infl_poly=2)
+
+# Compare the results
+biomass.compare(N1,N2)
+}
+\keyword{ misc }% at least one, from doc/KEYWORDS __ONLY ONE__ keyword per line

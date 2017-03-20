@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HEAD></HEAD><HTML><BODY>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package BiomassTracking:  Contents">
+<param name="Local" value="00Index.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package BiomassTracking:  R objects">
+</OBJECT>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="biomass.compare">
+<param name="Local" value="biomass.compare.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="biomass.tracking">
+<param name="Local" value="biomass.tracking.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="particle.tracking">
+<param name="Local" value="particle.tracking.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="particle.tracking.compare">
+<param name="Local" value="particle.tracking.compare.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.arena">
+<param name="Local" value="plot.arena.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="prepare.arena">
+<param name="Local" value="prepare.arena.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="quiver">
+<param name="Local" value="quiver.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="randomflowfield">
+<param name="Local" value="randomflowfield.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Sdata">
+<param name="Local" value="Sdata.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Udata">
+<param name="Local" value="Udata.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Vdata">
+<param name="Local" value="Vdata.html">
+</OBJECT>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package BiomassTracking:  Titles">
+</OBJECT>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Calculate the movement of biomass from movement tensors ">
+<param name="Local" value="biomass.tracking.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Compare two different estimations of biomass movement ">
+<param name="Local" value="biomass.compare.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Estimate a 'movement kernel' describing the movement of biomass. ">
+<param name="Local" value="particle.tracking.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="EW component of a flow field">
+<param name="Local" value="Udata.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Generate one direction of a random flow field">
+<param name="Local" value="randomflowfield.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="NS component of a flow field">
+<param name="Local" value="Vdata.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Plot a flow field">
+<param name="Local" value="quiver.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Polygon structure and land positions">
+<param name="Local" value="Sdata.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Prepares the arena for an estimation of movement">
+<param name="Local" value="prepare.arena.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Show the arena">
+<param name="Local" value="plot.arena.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Track the movement of biomass as passive drifters">
+<param name="Local" value="particle.tracking.compare.html">
+</OBJECT>
+</UL>
+</UL>
+</BODY></HTML>

@@ -1,0 +1,24 @@
+[OPTIONS]
+Auto Index=Yes
+Contents file=BiomassTracking.toc
+Compatibility=1.1 or later
+Compiled file=BiomassTracking.chm
+Default topic=00Index.html
+Display compile progress=No
+Full-text search=Yes
+Full text search stop list file=..\..\..\gnuwin32\help\R.stp
+
+
+[FILES]
+00Index.html
+Sdata.html
+Udata.html
+Vdata.html
+biomass.compare.html
+biomass.tracking.html
+particle.tracking.html
+particle.tracking.compare.html
+plot.arena.html
+prepare.arena.html
+quiver.html
+randomflowfield.html

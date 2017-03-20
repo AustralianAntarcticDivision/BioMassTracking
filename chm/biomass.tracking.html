@@ -1,0 +1,136 @@
+<html><head><title>Calculate the movement of biomass from movement tensors</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>biomass.tracking(BiomassTracking)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   biomass.tracking">
+<param name="keyword" value=" Calculate the movement of biomass from movement tensors">
+</object>
+
+
+<h2>Calculate the movement of biomass from movement tensors</h2>
+
+
+<h3>Description</h3>
+
+<p>
+This function calculates the movement of biomass between
+given polygons as determined by the movement parameters.
+It uses the movement tensor calculated by a numerical tracer 
+experiment implemented by the function <code>particle.tracking</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+biomass.tracking(mk, times, start_setup=NULL, infl_poly = 1, infl_time=10, 
+                 insert_t_step=NULL,silent=TRUE,S=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mk</code></td>
+<td>
+An object of class <code>movement kernel</code>, see details.</td></tr>
+<tr valign="top"><td><code>times</code></td>
+<td>
+A vector giving the time-points at which the output is wanted.</td></tr>
+<tr valign="top"><td><code>start_setup</code></td>
+<td>
+A vector giving a starting biomass distribution. Specify either this or the next two arguments.</td></tr>
+<tr valign="top"><td><code>infl_poly</code></td>
+<td>
+The biomass flows in from this polygon. Has to have positive inflow from the boundary.</td></tr>
+<tr valign="top"><td><code>infl_time</code></td>
+<td>
+The number of time steps over which the biomass is to be inserted. Only used if start_setup==NULL.</td></tr>
+<tr valign="top"><td><code>insert_t_step</code></td>
+<td>
+The width of the time steps over which the biomass is to be inserted. Only used if start_setup==NULL.</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+If FALSE, the movement is shown in text and graphic and the user has to hit 'enter' after every time step.</td></tr>
+<tr valign="top"><td><code>S</code></td>
+<td>
+Matrix describing the polygon structure, needed if silent == FALSE.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+Two different starting conditions for the flow of biomass can be given: A starting distribution of
+biomass can be specified or it can flow into the area through the specified inflow polygon over
+a given number of time steps. In this case, time steps refers to the differences between
+the first two entries in the <code>times</code> vector.
+</p>
+<p>
+An object of class <code>movement\_kernel</code> is a list of the following items:
+</p>
+<p>
+P: A list of the movement tensors for each polygon, where P[[poly]][i,j,k] describes the probability of a particle leaving polygon <code>poly</code> towards polygon <code>j</code> in the case that it entered from polygon <code>i</code> and is in age class <code>k</code>.
+nk: A list containing the neighbours for each polygon. This is used to translate between the local neighbourhood numbers (used in P) to the global numbers of the polygons.
+no_age_classes: The number of age classes used in the movement kernel.
+delta: Width of the age classes used in the movement kernel.
+retention: Logical to indicate whether retention in the final age class has been enabled or not.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+A matrix of dimension 'number of polygons' x 'number of time steps requested'. Each column contains
+the biomass distribution in the respective time step.</p>
+
+<h3>Author(s)</h3>
+
+<p>
+Thorsten Lenser
+</p>
+
+
+<h3>References</h3>
+
+<p>
+TODO: my report
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="particle.tracking.html">particle.tracking</a></code>, <code><a href="particle.tracking.compare.html">particle.tracking.compare</a></code>, <code><a href="biomass.compare.html">biomass.compare</a></code>, <code><a href="prepare.arena.html">prepare.arena</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Udata)
+data(Vdata)
+data(Sdata)
+
+arena = prepare.arena(Udata,Vdata,Sdata)
+plot(arena)
+
+# Use more particles if realistic results are needed
+mk = particle.tracking(arena,400,5000,diffusion=0.6,graphics=TRUE)
+
+# Now estimate the biomass movement
+N1 = biomass.tracking(mk,seq(0,4900,by=100),infl_poly=2)
+
+# Get a particle tracking result to compare the above to
+N2 = particle.tracking.compare(arena,400,100,50,diffusion=0.6,infl_poly=2)
+
+# Compare the results
+biomass.compare(N1,N2)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>BiomassTracking</em> version 0.8 <a href="00Index.html">Index]</a></div>
+
+</body></html>

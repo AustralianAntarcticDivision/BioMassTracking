@@ -1,0 +1,169 @@
+<html><head><title>Track the movement of biomass as passive drifters</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>particle.tracking.compare(BiomassTracking)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   particle.tracking.compare">
+<param name="keyword" value=" Track the movement of biomass as passive drifters">
+</object>
+
+
+<h2>Track the movement of biomass as passive drifters</h2>
+
+
+<h3>Description</h3>
+
+<p>
+This functions tracks the movement of biomass through the given polygons by following
+the proportionate distribution of a large number of passive drifter (small fluid parcels) 
+trajectories, which are calculated using a 4th-order Runge-Kutta integration scheme.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+particle.tracking.compare(arena,num_particles,t_step,end_t_counter,
+                          start_setup=NULL,infl_poly=1,insert_time=10,
+                          subdiv=NULL,diffusion=0,silent=TRUE,graphics=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>arena</code></td>
+<td>
+An object of class <code>arena</code>, see details.</td></tr>
+<tr valign="top"><td><code>num_particles</code></td>
+<td>
+The number of particles used.</td></tr>
+<tr valign="top"><td><code>t_step</code></td>
+<td>
+The time step in which the results should be presented.</td></tr>
+<tr valign="top"><td><code>end_t_counter</code></td>
+<td>
+The number of time steps that should be recorded.</td></tr>
+<tr valign="top"><td><code>start_setup</code></td>
+<td>
+A vector giving a starting biomass distribution. Specify either this or the next two arguments.</td></tr>
+<tr valign="top"><td><code>infl_poly</code></td>
+<td>
+The polygon into which the biomass enters. Has to have positive inflow from the outside.</td></tr>
+<tr valign="top"><td><code>infl_time</code></td>
+<td>
+The number of time steps over which the biomass is to be inserted.</td></tr>
+<tr valign="top"><td><code>subdiv</code></td>
+<td>
+The number of Runge-Kutta time steps per recorded time step. See details for the default value.</td></tr>
+<tr valign="top"><td><code>diffusion</code></td>
+<td>
+The coefficient of diffusion, see details.</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+If silent is FALSE, the movement of the biomass will be shown graphically, 
+with the user having to hit 'enter' after every time step</td></tr>
+<tr valign="top"><td><code>graphics</code></td>
+<td>
+If graphics is TRUE, the remaining particles at the end will be shown. A plot of
+of the arena has to be done before.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+There are two different starting conditions for the flow of biomass: A starting distribution can
+be given or the biomass can flow into the area through a specified inflow polygon in a certain 
+number of time steps.
+</p>
+<p>
+A call to the C-function <code>particle\_tracking\_compare\_inflow</code> does the bulk of work,
+which is a lot faster than the same implementation in R due to the greatly increased efficiency
+of 'for' loops. It is important to note that in the present form, particles can get caught in
+'voids' in the flow field, i.e. in places where their velocity is 0. If this happens for too
+many particles (a warnings message is given at the end, indicating the number of particles left
+in the domain), the estimation should be repeated with a higher values of diffusion.
+</p>
+<p>
+There is considerable space for improvement in replacing the fixed time step Runge-Kutta scheme with
+a more sophisticated numerical integrator. However, this requires some fiddling with the underlying
+C functions and has not been tried yet.
+</p>
+<p>
+An <code>arena</code> object describes the arena in which the function is to be used. It is a list containing
+elements <code>lat</code>, <code>lon</code>, <code>U</code>, <code>V</code> and <code>S</code> (in that order), 
+where <code>lat</code> and <code>lon</code> are vectors storing the latitude and longitude values of the 
+grid points used, <code>U</code> and <code>V</code> are matrices with the corresponding
+flow velocities in west-east and south-north direction, and <code>S</code> is a matrix in which each grid points has 
+an integer number, either giving the polygon it belongs to (if &gt; 0) or stating that this grid point 
+lies on land (if == 0).
+</p>
+<p>
+The default value for <code>subdiv</code> is choosen in such a way that a particle will on average move for 1/10 
+of the distance between two grid points in each time step. Although a variable time step would be preferable,
+this yields an accurate estimation in most cases.
+</p>
+<p>
+Diffusion is included by adding the product of a normal random variable and the mean velocity to the 
+calculated velocity in either direction. The diffusion coefficient gives the
+standard variation of the normal random number. Diffusion is needed to get particles out of 'voids',
+i.e. places in the flow field where the adjacent velocities cancel out and the particles get stuck.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+A matrix of dimension 'number of polygons' x 'number of time steps', where the last polygon is the
+'outside'. Each column holds the biomass distribution in the respective time step.</p>
+
+<h3>Author(s)</h3>
+
+<p>
+Thorsten Lenser
+</p>
+
+
+<h3>References</h3>
+
+<p>
+TODO: My report
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="biomass.tracking.html">biomass.tracking</a></code>, <code><a href="particle.tracking.compare.html">particle.tracking.compare</a></code>, <code><a href="biomass.compare.html">biomass.compare</a></code>, <code><a href="prepare.arena.html">prepare.arena</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Udata)
+data(Vdata)
+data(Sdata)
+
+arena = prepare.arena(Udata,Vdata,Sdata)
+plot(arena)
+
+# Use more particles if realistic results are needed
+mk = particle.tracking(arena,400,5000,diffusion=0.6,graphics=TRUE)
+
+# Now estimate the biomass movement
+N1 = biomass.tracking(mk,seq(0,4900,by=100),infl_poly=2)
+
+# Get a particle tracking result to compare the above to
+N2 = particle.tracking.compare(arena,400,100,50,diffusion=0.6,infl_poly=2)
+
+# Compare the results
+biomass.compare(N1,N2)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>BiomassTracking</em> version 0.8 <a href="00Index.html">Index]</a></div>
+
+</body></html>

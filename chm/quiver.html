@@ -1,0 +1,88 @@
+<html><head><title>Plot a flow field</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>quiver(BiomassTracking)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   quiver">
+<param name="keyword" value=" Plot a flow field">
+</object>
+
+
+<h2>Plot a flow field</h2>
+
+
+<h3>Description</h3>
+
+<p>
+This function plots a flow field given as west-east and south-north velocity values
+at regularly spaced grid points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+quiver(u, v, xpos = col(u), ypos = row(u), add = FALSE, scale=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>u</code></td>
+<td>
+The west-east velocities as a matrix.</td></tr>
+<tr valign="top"><td><code>v</code></td>
+<td>
+The south-north velocities as a matrix.</td></tr>
+<tr valign="top"><td><code>xpos</code></td>
+<td>
+Positions of the arrowbases in x-direction.</td></tr>
+<tr valign="top"><td><code>ypos</code></td>
+<td>
+Positions of the arrowbases in y-direction.</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+If TRUE, the flow field is added to the current plot.</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+The length of the longest arrow is 'scale' * 'distance between grid points'.</td></tr>
+</table>
+
+<h3>Author(s)</h3>
+
+<p>
+Thorsten Lenser
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="plot.arena.html">plot.arena</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Udata,Vdata,Sdata)
+arena = prepare.arena(Udata,Vdata,Sdata)
+
+# First use quiver only
+quiver(arena$U,arena$V)
+
+# Now use larger arrows, looks better in this case
+quiver(arena$U,arena$V,scale=5)
+
+# Together with the polygon structure
+plot(arena,arrow_scale=5)
+
+</pre>
+
+
+
+<hr><div align="center">[Package <em>BiomassTracking</em> version 0.8 <a href="00Index.html">Index]</a></div>
+
+</body></html>

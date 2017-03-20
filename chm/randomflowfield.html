@@ -1,0 +1,85 @@
+<html><head><title>Generate one direction of a random flow field</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>randomflowfield(BiomassTracking)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   randomflowfield">
+<param name="keyword" value=" Generate one direction of a random flow field">
+</object>
+
+
+<h2>Generate one direction of a random flow field</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Generate a matrix meant to be used as one direction of a random flow field.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+randomflowfield(n, m, std_dev)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+Zonal (x) extent of the flow field.</td></tr>
+<tr valign="top"><td><code>m</code></td>
+<td>
+Meridional (y) extent of the flow field.</td></tr>
+<tr valign="top"><td><code>std_dev</code></td>
+<td>
+Standard deviation used for the random walk, see details.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+This function proceeds in the following way: A starting value, either 1 or -1, is
+drawn at random. This is assigned to the element in the top-left corner of the matrix.
+The other values are then calculated as the sum of a normal random variable with standard
+deviaton <code>std\_dev</code> and their left neighbour (top row) or the mean of their left and their
+upper neighbour (rest).
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+A matrix meant to be used as one direction of a random flow field.</p>
+
+<h3>Author(s)</h3>
+
+<p>
+Thorsten Lenser
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="prepare.arena.html">prepare.arena</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+U = randomflowfield(30,30,0.3)
+V = randomflowfield(30,30,0.3)
+quiver(U,V)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>BiomassTracking</em> version 0.8 <a href="00Index.html">Index]</a></div>
+
+</body></html>
