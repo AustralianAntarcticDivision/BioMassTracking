@@ -1,49 +1,24 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 [![Travis-CI Build Status](https://travis-ci.org/AustralianAntarcticDivision/BioMassTracking.svg?branch=master)](https://travis-ci.org/AustralianAntarcticDivision/BioMassTracking)
 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/AustralianAntarcticDivision/BioMassTracking?branch=master&svg=true)](https://ci.appveyor.com/project/AustralianAntarcticDivision/BioMassTracking)
 
+Biomass Tracking
+----------------
 
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
-)
-```
+See documentation (with figures!) here:
 
-## Biomass Tracking
+<https://australianantarcticdivision.github.io/BioMassTracking/>
 
-See documentation (with figures!) here: 
+More soon ...
 
-https://australianantarcticdivision.github.io/BioMassTracking/
+History
+-------
 
+The origin of this package was from 2005 on the file share. This is archived in branch "original-source". Michael Sumner March 21 2017.
 
-More soon ... 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## History 
-
-The origin of this package was from 2005 on the file share. This is archived in branch "original-source". Michael Sumner March 21 2017. 
-
-
-## Code of conduct
+Code of conduct
+---------------
 
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.

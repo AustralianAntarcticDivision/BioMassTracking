@@ -58,6 +58,8 @@ P) to the global numbers of the polygons. no\_age\_classes: The number of
 age classes used in the movement kernel. delta: Width of the age classes
 used in the movement kernel. retention: Logical to indicate whether
 retention in the final age class has been enabled or not.
+
+[[poly]: R:[poly
 }
 \examples{
 
