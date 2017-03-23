@@ -1,7 +1,7 @@
 #include <R.h>
 #include <Rmath.h>
 #include <math.h>
-#include <R_ext\Utils.h>
+#include <R_ext/Utils.h>
 
 /**************************************************************************
  *
