@@ -29,7 +29,7 @@
 #' U = randomflowfield(30,30,0.3)
 #' V = randomflowfield(30,30,0.3)
 #' quiver(U,V)
-#' 
+#' @export
 randomflowfield <- function(n,m,std_dev){
 	# Starting value
 	x = runif(1, min=-1,max=1)

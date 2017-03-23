@@ -139,7 +139,7 @@
 #' 
 #' # Compare the results
 #' biomass.compare(N1,N2)
-#' 
+#' @export  
 particle.tracking <- function(arena,num_particles,no_move_window=1000,end_t_counter=NULL,t_step=NULL,diffusion=0,no_age_classes="FD",min_nac=100,max_nac=500,delta=NULL,graphics=FALSE,log=FALSE,from_boundary=TRUE){
 
 if(is.null(t_step)){

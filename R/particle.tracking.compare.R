@@ -97,7 +97,7 @@
 #' 
 #' # Compare the results
 #' biomass.compare(N1,N2)
-#' 
+#' @export
 particle.tracking.compare <- function(arena,num_particles,t_step,end_t_counter,start_setup=NULL,infl_poly=1,infl_time=10,subdiv=NULL,diffusion=0,silent=TRUE,graphics=FALSE){
 
 if(class(arena) != "arena"){

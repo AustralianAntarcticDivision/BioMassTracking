@@ -32,7 +32,7 @@
 #' # Together with the polygon structure
 #' plot(arena,arrow_scale=5)
 #' 
-#' 
+#' @export
 quiver <- function(u,v,xpos=col(u),ypos=row(u),add=FALSE,scale=1)
 {
     tmp_u <- par("usr")

@@ -67,7 +67,7 @@
 #' data(Sdata)
 #' arena = prepare.arena(Udata,Vdata,Sdata)
 #' plot(arena)
-#' 
+#' @export
 prepare.arena <- function(file_U=NULL,file_V=NULL,file_S=NULL,n=dim(file_U)[2],m=dim(file_U)[1], na.string="-9999", eddy=FALSE, smooth=FALSE, noise_sd=0){
 	# Read the data from the files
 

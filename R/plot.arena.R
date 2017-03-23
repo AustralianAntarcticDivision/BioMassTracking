@@ -38,7 +38,7 @@
 #' 
 #' arena = prepare.arena(Udata,Vdata,Sdata)
 #' plot(arena)
-#' 
+#' @export
 plot.arena <- function(x,arrow_scale=1,grid=FALSE,...){
 
 if(class(x) != "arena"){

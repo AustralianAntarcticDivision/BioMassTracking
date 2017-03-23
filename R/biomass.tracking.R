@@ -77,7 +77,7 @@
 #' 
 #' # Compare the results
 #' biomass.compare(N1,N2)
-#' 
+#' @export
 biomass.tracking <- function(mk,times,start_setup=NULL,infl_poly=1,infl_time=10,insert_t_step=NULL,silent=TRUE,S=NULL){
 
 if(class(mk) != "movement_kernel"){
