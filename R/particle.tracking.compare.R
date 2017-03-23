@@ -181,7 +181,7 @@ else{
 if(silent == FALSE){
 	# Display N
 	BM = S
-	windows()
+	dev.new()
 	S_index = ifelse(S==0,1,S) # The added index 1 should be filtered out below.
 	for (t in 1:end_t_counter){
 		BM = ifelse(S==0,0,N[S_index,t])
