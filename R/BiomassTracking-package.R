@@ -3,6 +3,10 @@
 #' @name BiomassTracking
 #' @docType package
 #' @useDynLib BiomassTracking, .registration = TRUE
+#' @importFrom grDevices nclass.FD nclass.Sturges nclass.scott terrain.colors topo.colors windows
+#' @importFrom graphics arrows filled.contour image lines matplot par plot points
+#' @importFrom stats na.omit quantile rnorm runif
+#' @importFrom utils read.table
 NULL
 
 #' Polygon structure and land positions
