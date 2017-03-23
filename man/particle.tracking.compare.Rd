@@ -108,7 +108,6 @@ N2 = particle.tracking.compare(arena,400,100,50,diffusion=0.6,infl_poly=2)
 
 # Compare the results
 biomass.compare(N1,N2)
-
 }
 \references{
 TODO: My report

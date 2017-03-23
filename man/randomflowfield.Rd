@@ -32,7 +32,6 @@ neighbour (top row) or the mean of their left and their upper neighbour
 U = randomflowfield(30,30,0.3)
 V = randomflowfield(30,30,0.3)
 quiver(U,V)
-
 }
 \seealso{
 \code{\link{prepare.arena}}

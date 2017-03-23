@@ -80,7 +80,6 @@ data(Vdata)
 data(Sdata)
 arena = prepare.arena(Udata,Vdata,Sdata)
 plot(arena)
-
 }
 \references{
 TODO: my report

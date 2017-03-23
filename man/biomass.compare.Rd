@@ -61,7 +61,6 @@ class(N2) = "biomass_distribution"
 
 ## Compare them
 biomass.compare(N1,N2)
-
 }
 \author{
 Thorsten Lenser

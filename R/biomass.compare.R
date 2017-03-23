@@ -52,7 +52,7 @@
 #' 
 #' ## Compare them
 #' biomass.compare(N1,N2)
-#' 
+#' @export
 biomass.compare <- function(N1,N2,graphics=TRUE,legend=NULL){
 if(class(N1) != "biomass_distribution"){
 	stop("N1 has to be of class 'biomass_distribution'!")

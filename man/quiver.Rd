@@ -38,7 +38,6 @@ quiver(arena$U,arena$V,scale=5)
 # Together with the polygon structure
 plot(arena,arrow_scale=5)
 
-
 }
 \seealso{
 \code{\link{plot.arena}}

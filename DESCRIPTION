@@ -2,7 +2,7 @@ Package: BiomassTracking
 Version: 0.8
 Title: Biomass tracking package
 Authors@R: c(person("Thorsten Lenser", role = "aut", email = "thorsten.lenser@gmx.net"),
-    person("Andrew Constable", role = "ctb", email = "Andrew.Constable@aad.gov.au")
+    person("Andrew Constable", role = "ctb", email = "Andrew.Constable@aad.gov.au"),
     person("Michael D.","Sumner", role = c("ctb", "cre"), email = "mdsumner@gmail.com"))
 Depends: R (>= 3.3.0)
 Description: This package is intended to provide an automatic way of estimating and calculating the movement of biomass between different irregularly shaped polygon regions in the ocean on the basis of gridded flowfields. It provides methods or estimating the 'movement tensors' and using them to predict the movement of biomass as well as testing the simulations against a passive-drifter simulation.
