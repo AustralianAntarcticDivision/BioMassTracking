@@ -11,12 +11,10 @@ See documentation (with figures!) here:
 
 <https://australianantarcticdivision.github.io/BioMassTracking/>
 
-More soon ...
-
 History
 -------
 
-The origin of this package was from 2005 on the file share. This is archived in branch "original-source". Michael Sumner March 21 2017.
+The origin of this package was from 2005 by Thorsten Lenser working at the AAD. The original is archived in branch "original-source". Updated by Michael Sumner March 21 2017.
 
 Code of conduct
 ---------------
